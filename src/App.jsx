@@ -190,7 +190,8 @@ export default function App() {
                                     CPU Scheduling Simulator
                                 </h1>
                                 <p className="text-[10px] font-bold dark:text-white/30 text-slate-500 tracking-[0.2em] uppercase">
-                                    Operating Systems · OS Lab
+                                    Built by <a href="https://sudeepbro.works/" target="_blank"
+                                        className="dark:text-white/40 text-slate-500 hover:text-cyan-500 transition-colors duration-300">ShettyBro</a>
                                 </p>
                             </div>
                         </div>
