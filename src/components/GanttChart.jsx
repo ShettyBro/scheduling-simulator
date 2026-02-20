@@ -87,7 +87,7 @@ export default function GanttChart({ gantt, processes }) {
                     return (
                         <span
                             key={i}
-                            className="absolute -translate-x-1/2 text-[10px] font-mono dark:text-white/30 text-slate-400"
+                            className="absolute -translate-x-1/2 text-[10px] font-mono font-bold dark:text-white/30 text-slate-500"
                             style={{ left: `${pos}%` }}
                         >
                             {t}
@@ -106,7 +106,7 @@ export default function GanttChart({ gantt, processes }) {
                                 className="w-3 h-3 rounded-sm flex-shrink-0"
                                 style={{ background: `linear-gradient(135deg, ${grad.from}, ${grad.to})` }}
                             />
-                            <span className="dark:text-white/40 text-slate-500">P{p.id}</span>
+                            <span className="dark:text-white/40 text-slate-600 font-bold">P{p.id}</span>
                         </div>
                     )
                 })}

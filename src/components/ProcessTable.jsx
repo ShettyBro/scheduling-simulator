@@ -22,7 +22,7 @@ export default function ProcessTable({ processes, setProcesses, algorithm }) {
 
     const inputClass = `w-full text-center font-mono text-sm
         dark:bg-white/5 dark:border dark:border-white/10 dark:text-white dark:placeholder-white/20
-        bg-white border border-slate-200 text-slate-800
+        bg-white border border-slate-300 text-slate-900
         rounded-lg py-1.5 px-2
         focus:outline-none focus:ring-2 dark:focus:ring-cyan-500/40 focus:ring-cyan-400/60
         transition-all duration-150`
@@ -35,17 +35,17 @@ export default function ProcessTable({ processes, setProcesses, algorithm }) {
                 <table className="w-full text-sm">
                     <thead>
                         <tr className="dark:bg-white/5 bg-slate-50 dark:border-b dark:border-white/8 border-b border-slate-200">
-                            <th className="py-3 px-4 text-left font-semibold dark:text-white/30 text-slate-400 text-[10px] uppercase tracking-widest w-20">
+                            <th className="py-3 px-4 text-left font-bold dark:text-white/30 text-slate-500 text-[10px] uppercase tracking-widest w-20">
                                 PID
                             </th>
-                            <th className="py-3 px-4 font-semibold dark:text-white/30 text-slate-400 text-[10px] uppercase tracking-widest">
+                            <th className="py-3 px-4 font-bold dark:text-white/30 text-slate-500 text-[10px] uppercase tracking-widest">
                                 Arrival
                             </th>
-                            <th className="py-3 px-4 font-semibold dark:text-white/30 text-slate-400 text-[10px] uppercase tracking-widest">
+                            <th className="py-3 px-4 font-bold dark:text-white/30 text-slate-500 text-[10px] uppercase tracking-widest">
                                 Burst
                             </th>
                             {showPriority && (
-                                <th className="py-3 px-4 font-semibold dark:text-white/30 text-slate-400 text-[10px] uppercase tracking-widest">
+                                <th className="py-3 px-4 font-bold dark:text-white/30 text-slate-500 text-[10px] uppercase tracking-widest">
                                     Priority
                                 </th>
                             )}
@@ -98,7 +98,7 @@ export default function ProcessTable({ processes, setProcesses, algorithm }) {
                                         disabled={processes.length <= 1}
                                         className="w-7 h-7 rounded-lg
                                             dark:text-white/25 dark:hover:text-red-400 dark:hover:bg-red-500/10
-                                            text-slate-300 hover:text-red-500 hover:bg-red-50
+                                            text-slate-400 hover:text-red-500 hover:bg-red-50
                                             disabled:opacity-20 disabled:cursor-not-allowed
                                             transition-all duration-150 flex items-center justify-center text-lg"
                                         title="Remove process"
@@ -115,16 +115,16 @@ export default function ProcessTable({ processes, setProcesses, algorithm }) {
             {/* Add Process button */}
             <button
                 onClick={addRow}
-                className="group flex items-center gap-2 text-sm font-medium
+                className="group flex items-center gap-2 text-sm font-bold
                     dark:text-white/40 dark:hover:text-white
-                    text-slate-400 hover:text-slate-700
+                    text-slate-500 hover:text-slate-800
                     transition-all duration-150"
             >
                 <span className="w-6 h-6 rounded-full
                     bg-gradient-to-br from-cyan-500/20 to-violet-500/20
                     dark:border dark:border-white/10 border border-slate-200
                     flex items-center justify-center
-                    dark:text-cyan-400 text-cyan-500
+                    dark:text-cyan-400 text-cyan-600
                     group-hover:from-cyan-500/40 group-hover:to-violet-500/40
                     font-bold text-base leading-none transition-all duration-150">
                     +

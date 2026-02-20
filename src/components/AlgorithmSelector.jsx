@@ -19,8 +19,8 @@ export default function AlgorithmSelector({ algorithm, setAlgorithm, quantum, se
         <div className="space-y-5">
             {/* Algorithm pill tabs */}
             <div>
-                <p className="text-[10px] font-semibold uppercase tracking-widest dark:text-white/30 text-slate-400 mb-3">
-                    Algorithm
+                <p className="text-[10px] font-bold uppercase tracking-widest dark:text-white/30 text-slate-500 mb-3">
+                    Algorithm Selection
                 </p>
                 <div className="grid grid-cols-2 gap-2">
                     {ALGORITHMS.map(a => {
@@ -32,7 +32,7 @@ export default function AlgorithmSelector({ algorithm, setAlgorithm, quantum, se
                                 className={`relative flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200
                                     ${isActive
                                         ? `bg-gradient-to-r ${ACCENTS[a.value]} text-white shadow-lg scale-[1.02]`
-                                        : 'dark:bg-white/5 dark:hover:bg-white/10 dark:text-white/60 dark:hover:text-white dark:border dark:border-white/8 bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 hover:border-slate-300'
+                                        : 'dark:bg-white/5 dark:hover:bg-white/10 dark:text-white/60 dark:hover:text-white dark:border dark:border-white/8 bg-slate-200/50 hover:bg-slate-200 text-slate-700 border border-slate-300/50 hover:border-slate-400/50'
                                     }
                                 `}
                             >
@@ -50,7 +50,7 @@ export default function AlgorithmSelector({ algorithm, setAlgorithm, quantum, se
             {/* Time Quantum (RR only) */}
             {algorithm === 'rr' && (
                 <div className="animate-fade-up">
-                    <p className="text-[10px] font-semibold uppercase tracking-widest dark:text-white/30 text-slate-400 mb-3">
+                    <p className="text-[10px] font-bold uppercase tracking-widest dark:text-white/30 text-slate-500 mb-3">
                         Time Quantum
                     </p>
                     <div className="flex items-center gap-3">

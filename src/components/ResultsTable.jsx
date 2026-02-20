@@ -15,7 +15,7 @@ export default function ResultsTable({ results }) {
                     <tr className="dark:bg-white/5 bg-slate-50 dark:border-b dark:border-white/8 border-b border-slate-200">
                         {['PID', 'Arrival', 'Burst', 'Priority', 'Waiting Time', 'Turnaround Time'].map(h => (
                             <th key={h}
-                                className="py-3 px-4 font-semibold dark:text-white/30 text-slate-400 text-[10px] uppercase tracking-widest text-center">
+                                className="py-3 px-4 font-bold dark:text-white/30 text-slate-500 text-[10px] uppercase tracking-widest text-center">
                                 {h}
                             </th>
                         ))}
@@ -32,13 +32,13 @@ export default function ResultsTable({ results }) {
                                     P{r.id}
                                 </span>
                             </td>
-                            <td className="py-3 px-4 text-center font-mono text-sm dark:text-white/50 text-slate-600">
+                            <td className="py-3 px-4 text-center font-mono text-sm dark:text-white/50 text-slate-800 font-medium">
                                 {r.arrivalTime}
                             </td>
-                            <td className="py-3 px-4 text-center font-mono text-sm dark:text-white/50 text-slate-600">
+                            <td className="py-3 px-4 text-center font-mono text-sm dark:text-white/50 text-slate-800 font-medium">
                                 {r.burstTime}
                             </td>
-                            <td className="py-3 px-4 text-center font-mono text-sm dark:text-white/50 text-slate-600">
+                            <td className="py-3 px-4 text-center font-mono text-sm dark:text-white/50 text-slate-800 font-medium">
                                 {r.priority}
                             </td>
                             <td className="py-3 px-4 text-center">
@@ -61,7 +61,7 @@ export default function ResultsTable({ results }) {
                 <tfoot>
                     <tr className="dark:bg-white/5 dark:border-t dark:border-white/10 bg-slate-50 border-t-2 border-slate-200">
                         <td colSpan={4}
-                            className="py-3 px-4 text-[10px] font-bold uppercase tracking-widest dark:text-white/25 text-slate-400 text-right pr-6">
+                            className="py-3 px-4 text-[10px] font-bold uppercase tracking-widest dark:text-white/25 text-slate-500 text-right pr-6">
                             Averages
                         </td>
                         <td className="py-3 px-4 text-center">

@@ -95,12 +95,12 @@ function MetricCard({ label, value, unit, colorClass, glowClass, icon }) {
     return (
         <div className={`glass rounded-2xl p-5 flex flex-col gap-2 animate-fade-up border ${colorClass} shadow-lg ${glowClass}`}>
             <div className="flex items-center justify-between">
-                <p className="text-xs font-semibold uppercase tracking-widest text-white/40">{label}</p>
+                <p className="text-xs font-bold uppercase tracking-widest dark:text-white/40 text-slate-600">{label}</p>
                 <span className="text-lg">{icon}</span>
             </div>
             <div className="flex items-end gap-1.5">
-                <span className="text-3xl font-bold font-mono text-white">{value}</span>
-                {unit && <span className="text-xs text-white/40 mb-1 font-mono">{unit}</span>}
+                <span className="text-3xl font-bold font-mono dark:text-white text-slate-900">{value}</span>
+                {unit && <span className="text-xs dark:text-white/40 text-slate-500 mb-1 font-mono">{unit}</span>}
             </div>
         </div>
     )
@@ -110,6 +110,16 @@ function MetricCard({ label, value, unit, colorClass, glowClass, icon }) {
 export default function App() {
     const [darkMode, setDarkMode] = useState(true)
     const [processes, setProcesses] = useState(DEFAULT_PROCESSES)
+
+    // Sync dark mode with document root for Tailwind 'class' strategy
+    React.useEffect(() => {
+        if (darkMode) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    }, [darkMode])
+
     const [algorithm, setAlgorithm] = useState('fcfs')
     const [quantum, setQuantum] = useState(2)
     const [result, setResult] = useState(null)
@@ -129,7 +139,7 @@ export default function App() {
             const output = runAlgorithm(algorithm, processes, quantum)
             setResult(output)
             setIsRunning(false)
-        }, 120) // brief delay for animation feel
+        }, 300) // Slightly longer for a more "processing" feel
     }, [processes, algorithm, quantum])
 
     const info = ALGO_INFO[algorithm]
@@ -145,75 +155,71 @@ export default function App() {
     return (
         <div className={darkMode ? 'dark' : ''}>
             <div className="relative min-h-screen overflow-x-hidden transition-colors duration-500
-                dark:bg-[#080b14]
-                bg-gradient-to-br from-slate-100 via-blue-50 to-slate-100">
+                dark:bg-[#080b14] bg-white">
 
-                {/* ── Animated Background Blobs (dark only) ── */}
-                <div className="dark:block hidden pointer-events-none fixed inset-0 overflow-hidden -z-0">
-                    <div className="animate-blob absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full
-                        bg-gradient-to-br from-cyan-600/20 to-blue-700/20 blur-3xl" />
-                    <div className="animate-blob-delay-2 absolute top-1/3 -right-32 w-[420px] h-[420px] rounded-full
-                        bg-gradient-to-br from-violet-600/15 to-purple-700/15 blur-3xl" />
-                    <div className="animate-blob-delay-4 absolute -bottom-32 left-1/3 w-[380px] h-[380px] rounded-full
-                        bg-gradient-to-br from-indigo-600/15 to-cyan-700/10 blur-3xl" />
+                {/* ── Background Blobs ── */}
+                <div className="fixed inset-0 overflow-hidden -z-0 pointer-events-none">
+                    <div className="animate-blob absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full
+                        dark:bg-cyan-600/20 bg-cyan-200/40 blur-[100px]" />
+                    <div className="animate-blob-delay-2 absolute top-1/3 -right-32 w-[520px] h-[520px] rounded-full
+                        dark:bg-violet-600/15 bg-violet-200/40 blur-[100px]" />
+                    <div className="animate-blob-delay-4 absolute -bottom-32 left-1/3 w-[480px] h-[480px] rounded-full
+                        dark:bg-indigo-600/15 bg-blue-100/40 blur-[100px]" />
                 </div>
 
-                {/* ── Grid overlay texture (dark only) ── */}
-                <div className="dark:block hidden pointer-events-none fixed inset-0 -z-0 opacity-[0.03]"
-                    style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+                {/* ── Grid texture (Subtle) ── */}
+                <div className="pointer-events-none fixed inset-0 -z-0 opacity-[0.05] dark:opacity-[0.1]"
+                    style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
 
                 {/* ── Header ── */}
-                <header className="sticky top-0 z-30
-                    dark:glass-strong dark:border-b dark:border-white/5
-                    bg-white/80 backdrop-blur-xl border-b border-slate-200">
+                <header className="sticky top-0 z-30 transition-all duration-300
+                    dark:glass-strong dark:border-b dark:border-white/10
+                    bg-white/70 backdrop-blur-2xl border-b border-slate-200 shadow-sm">
                     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                            {/* Logo mark */}
-                            <div className="w-9 h-9 rounded-xl flex items-center justify-center shadow-lg
-                                bg-gradient-to-br from-cyan-400 to-violet-600 glow-cyan">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <div className="flex items-center gap-4">
+                            <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg
+                                bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-600 glow-cyan">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                     <rect x="2" y="3" width="20" height="14" rx="2" />
                                     <path d="M8 21h8M12 17v4" />
                                     <path d="M7 8h1M11 8h1M15 8h1M7 12h10" />
                                 </svg>
                             </div>
                             <div>
-                                <h1 className="text-base font-bold dark:text-white text-slate-900 leading-tight tracking-tight">
+                                <h1 className="text-xl font-bold dark:text-white text-slate-900 leading-tight tracking-tight">
                                     CPU Scheduling Simulator
                                 </h1>
-                                <p className="text-[10px] font-mono dark:text-white/30 text-slate-400 tracking-widest uppercase">
-                                    Operating Systems · Postgraduate
+                                <p className="text-[10px] font-bold dark:text-white/30 text-slate-500 tracking-[0.2em] uppercase">
+                                    Operating Systems · OS Lab
                                 </p>
                             </div>
                         </div>
 
                         <button
                             onClick={() => setDarkMode(d => !d)}
-                            className="w-9 h-9 rounded-xl glass flex items-center justify-center
-                                dark:text-white/50 dark:hover:text-white
-                                text-slate-500 hover:text-slate-700
+                            className="group w-10 h-10 rounded-xl flex items-center justify-center
+                                dark:bg-white/5 dark:text-white/70 dark:hover:text-white dark:hover:bg-white/10
+                                bg-slate-100 text-slate-600 hover:text-slate-900 hover:bg-slate-200
                                 border dark:border-white/10 border-slate-200
-                                hover:scale-105 transition-all duration-200"
+                                transition-all duration-300 shadow-sm hover:shadow-md"
                             title="Toggle dark / light mode"
                         >
-                            {darkMode ? '☀️' : '🌙'}
+                            <span className="text-lg group-hover:rotate-12 transition-transform">{darkMode ? '☀️' : '🌙'}</span>
                         </button>
                     </div>
                 </header>
 
                 {/* ── Main Content ── */}
-                <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+                <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-8">
 
-                    {/* ── Top Grid: Config + Process Table ── */}
-                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                    {/* ── Config Grid ── */}
+                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
 
-                        {/* Left column: Algorithm Selector + Info */}
-                        <div className="lg:col-span-2 space-y-4">
-
-                            {/* Algorithm Selector Card */}
-                            <div className="glass-light dark:glass rounded-2xl p-5 shadow-xl dark:shadow-black/30">
-                                <p className="text-[10px] font-bold uppercase tracking-widest dark:text-white/30 text-slate-400 mb-4">
-                                    Configuration
+                        <div className="lg:col-span-2 space-y-6">
+                            {/* Algorithm Switcher */}
+                            <div className="glass-light dark:glass rounded-3xl p-6 shadow-2xl dark:shadow-none animate-fade-up">
+                                <p className="text-[11px] font-bold uppercase tracking-[0.15em] dark:text-white/40 text-slate-500 mb-5">
+                                    Select Algorithm
                                 </p>
                                 <AlgorithmSelector
                                     algorithm={algorithm}
@@ -223,51 +229,52 @@ export default function App() {
                                 />
                             </div>
 
-                            {/* Algorithm Info Card */}
-                            <div className={`glass-light dark:glass rounded-2xl p-5 shadow-xl dark:shadow-black/30 space-y-3 border dark:${info.accentBorder} border-slate-200`}>
-                                <div className="flex items-start justify-between gap-2">
-                                    <div className="flex items-center gap-2">
-                                        <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-sm bg-gradient-to-br ${info.accent} text-white shadow-md`}>
+                            {/* Details Card */}
+                            <div className={`glass-light dark:glass rounded-3xl p-6 shadow-2xl dark:shadow-none animate-fade-up border dark:${info.accentBorder} border-slate-200/50`}>
+                                <div className="flex items-center justify-between gap-3 mb-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg bg-gradient-to-br ${info.accent} text-white shadow-xl`}>
                                             {info.icon}
-                                        </span>
-                                        <h3 className="font-semibold dark:text-white text-slate-800 text-sm leading-snug">{info.name}</h3>
+                                        </div>
+                                        <div>
+                                            <h3 className="font-bold dark:text-white text-slate-900 text-base leading-none mb-1">{info.name}</h3>
+                                            <p className="text-[10px] font-mono dark:text-white/40 text-slate-500">{info.short}</p>
+                                        </div>
                                     </div>
-                                    <span className="flex-shrink-0 text-[11px] font-mono
-                                        dark:bg-white/5 dark:text-white/40 dark:border dark:border-white/10
-                                        bg-slate-100 text-slate-500 border border-slate-200
-                                        px-2 py-0.5 rounded-lg">
-                                        {info.complexity}
-                                    </span>
+                                    <div className="bg-slate-900/5 dark:bg-white/5 border border-black/5 dark:border-white/10 px-3 py-1 rounded-full">
+                                        <span className="text-xs font-mono dark:text-white/60 text-slate-600 font-bold">{info.complexity}</span>
+                                    </div>
                                 </div>
-                                <p className="text-xs dark:text-white/50 text-slate-500 leading-relaxed">{info.description}</p>
-                                <div className="rounded-xl dark:bg-white/5 dark:border dark:border-white/8 bg-sky-50 border border-sky-100 p-3">
-                                    <p className="text-xs dark:text-cyan-300 text-sky-700 leading-relaxed">
-                                        <span className="font-semibold">💡 Insight: </span>{info.insight}
+                                <p className="text-sm dark:text-white/60 text-slate-600 leading-relaxed mb-4">{info.description}</p>
+                                <div className="rounded-2xl dark:bg-white/5 bg-blue-50/50 border dark:border-white/10 border-blue-100/50 p-4">
+                                    <p className="text-xs dark:text-cyan-200 text-blue-800 leading-relaxed italic">
+                                        <span className="font-bold not-italic">Insight: </span>{info.insight}
                                     </p>
                                 </div>
                                 {info.starvation && (
-                                    <div className="rounded-xl dark:bg-red-500/10 dark:border dark:border-red-500/20 bg-red-50 border border-red-100 p-3">
-                                        <p className="text-xs dark:text-red-300 text-red-700 leading-relaxed">
-                                            <span className="font-semibold">⚠️ Starvation Risk: </span>
-                                            Low-priority processes may wait indefinitely. Use aging to mitigate.
+                                    <div className="mt-4 rounded-2xl dark:bg-red-500/10 bg-red-50 border dark:border-red-500/20 border-red-100 p-4">
+                                        <p className="text-xs dark:text-red-300 text-red-700 leading-relaxed font-medium">
+                                            ⚠️ Starvation Risk detected. Aging is recommended for production use.
                                         </p>
                                     </div>
                                 )}
                             </div>
                         </div>
 
-                        {/* Right column: Process Table */}
-                        <div className="lg:col-span-3 glass-light dark:glass rounded-2xl p-5 shadow-xl dark:shadow-black/30">
-                            <div className="flex items-center justify-between mb-4">
-                                <p className="text-[10px] font-bold uppercase tracking-widest dark:text-white/30 text-slate-400">
-                                    Process Queue
-                                </p>
-                                <span className="text-[11px] font-mono
-                                    dark:bg-white/5 dark:text-white/40 dark:border dark:border-white/10
-                                    bg-slate-100 text-slate-500 border border-slate-200
-                                    px-2.5 py-1 rounded-lg">
-                                    {processes.length} processes
-                                </span>
+                        {/* Process Queue */}
+                        <div className="lg:col-span-3 glass-light dark:glass rounded-3xl p-6 shadow-2xl dark:shadow-none animate-fade-up">
+                            <div className="flex items-center justify-between mb-6">
+                                <div>
+                                    <p className="text-[11px] font-bold uppercase tracking-[0.15em] dark:text-white/40 text-slate-500">
+                                        Process Queue
+                                    </p>
+                                    <h2 className="text-lg font-bold dark:text-white text-slate-900">Manage Tasks</h2>
+                                </div>
+                                <div className="dark:bg-white/5 bg-slate-900/5 px-4 py-1.5 rounded-full border dark:border-white/10 border-black/5">
+                                    <span className="text-xs font-bold dark:text-white/80 text-slate-900 font-mono">
+                                        {processes.length} Active
+                                    </span>
+                                </div>
                             </div>
                             <ProcessTable
                                 processes={processes}
@@ -277,113 +284,89 @@ export default function App() {
                         </div>
                     </div>
 
-                    {/* ── Validation Errors ── */}
+                    {/* Simulation Errors */}
                     {errors.length > 0 && (
-                        <div className="glass rounded-2xl p-4 border border-red-500/30 bg-red-500/10 animate-fade-up">
-                            <p className="text-xs font-bold text-red-400 uppercase tracking-wider mb-2 flex items-center gap-2">
-                                <span>⛔</span> Validation Errors
-                            </p>
-                            <ul className="space-y-1">
+                        <div className="glass rounded-2xl p-5 border border-red-500/30 bg-red-500/5 animate-fade-up shadow-lg">
+                            <div className="flex items-center gap-3 mb-3">
+                                <span className="bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">!</span>
+                                <p className="text-sm font-bold text-red-500 uppercase tracking-widest">Input Errors</p>
+                            </div>
+                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1">
                                 {errors.map((e, i) => (
-                                    <li key={i} className="text-xs text-red-300 font-mono">• {e}</li>
+                                    <li key={i} className="text-xs dark:text-red-300 text-red-600 font-medium">• {e}</li>
                                 ))}
                             </ul>
                         </div>
                     )}
 
-                    {/* ── Run Button ── */}
-                    <div className="flex justify-center">
+                    {/* CTA Button */}
+                    <div className="flex justify-center pt-2">
                         <button
                             onClick={handleSimulate}
                             disabled={isRunning}
-                            className={`group relative px-10 py-3.5 rounded-2xl font-semibold text-sm text-white
-                                bg-gradient-to-r from-cyan-500 to-violet-600
-                                hover:from-cyan-400 hover:to-violet-500
-                                shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40
-                                hover:scale-[1.03] active:scale-95
-                                transition-all duration-200
-                                disabled:opacity-60 disabled:cursor-wait
-                                flex items-center gap-2`}
+                            className={`group relative px-12 py-4 rounded-3xl font-bold text-base text-white
+                                bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600
+                                hover:from-cyan-400 hover:via-blue-500 hover:to-violet-500
+                                shadow-[0_20px_50px_rgba(6,182,212,0.3)] hover:shadow-[0_20px_50px_rgba(6,182,212,0.5)]
+                                hover:-translate-y-1 active:scale-95
+                                transition-all duration-300
+                                disabled:opacity-50 disabled:cursor-wait disabled:hover:translate-y-0
+                                flex items-center gap-3`}
                         >
                             {isRunning ? (
-                                <>
-                                    <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                                    </svg>
-                                    Simulating…
-                                </>
+                                <svg className="w-5 h-5 animate-spin" viewBox="0 0 24 24" fill="none">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                                </svg>
                             ) : (
-                                <>
-                                    <span>▶</span>
-                                    Run Simulation
-                                    <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
-                                </>
+                                <span className="group-hover:rotate-12 transition-transform">⚡</span>
                             )}
+                            {isRunning ? 'Processing...' : 'Run Simulation'}
                         </button>
                     </div>
 
-                    {/* ── Results Section ── */}
+                    {/* Results Table Section */}
                     {result && (
-                        <div className="space-y-6">
-                            {/* Metric Cards */}
-                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                                <MetricCard label="Avg Waiting" value={avgWT} unit="ms" icon="⏱" colorClass="border-amber-500/25" glowClass="shadow-amber-500/10" />
-                                <MetricCard label="Avg Turnaround" value={avgTAT} unit="ms" icon="🔄" colorClass="border-emerald-500/25" glowClass="shadow-emerald-500/10" />
-                                <MetricCard label="Processes" value={result.results.length} unit="total" icon="⚙️" colorClass="border-cyan-500/25" glowClass="shadow-cyan-500/10" />
-                                <MetricCard label="CPU Utilization" value={cpuUtil} unit="" icon="📊" colorClass="border-violet-500/25" glowClass="shadow-violet-500/10" />
+                        <div className="space-y-8 py-4 animate-fade-up">
+                            {/* Summary Metrics */}
+                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                                <MetricCard label="Waiting Time" value={avgWT} unit="ms" icon="🕒" colorClass="border-amber-500/30" glowClass="shadow-amber-500/10" />
+                                <MetricCard label="Turnaround" value={avgTAT} unit="ms" icon="🔄" colorClass="border-emerald-500/30" glowClass="shadow-emerald-500/10" />
+                                <MetricCard label="Throughput" value={result.results.length} unit="jobs" icon="🔥" colorClass="border-cyan-500/30" glowClass="shadow-cyan-500/10" />
+                                <MetricCard label="Efficiency" value={cpuUtil} unit="" icon="⚡" colorClass="border-violet-500/30" glowClass="shadow-violet-500/10" />
                             </div>
 
-                            {/* Starvation Warning */}
-                            {result.starvationRisk && (
-                                <div className="glass rounded-2xl p-4 border border-orange-500/30 bg-orange-500/10 flex gap-3 animate-fade-up">
-                                    <span className="text-2xl">⚠️</span>
-                                    <div>
-                                        <p className="text-sm font-semibold text-orange-300">Starvation Detected</p>
-                                        <p className="text-xs text-orange-400/80 mt-0.5 leading-relaxed">
-                                            One or more low-priority processes waited significantly longer than their burst time.
-                                            Consider implementing an aging mechanism to prevent indefinite postponement.
-                                        </p>
-                                    </div>
+                            {/* Gantt View */}
+                            <div className="glass-light dark:glass rounded-3xl p-8 shadow-2xl dark:shadow-none relative">
+                                <div className="flex items-center justify-between mb-6">
+                                    <p className="text-[11px] font-bold uppercase tracking-[0.15em] dark:text-white/40 text-slate-500">
+                                        Time-flow Analysis
+                                    </p>
+                                    <h3 className="text-xl font-bold dark:text-white text-slate-900">Gantt Chart</h3>
                                 </div>
-                            )}
-
-                            {/* Gantt Chart */}
-                            <div className="glass-light dark:glass rounded-2xl p-5 shadow-xl dark:shadow-black/30 animate-fade-up">
-                                <p className="text-[10px] font-bold uppercase tracking-widest dark:text-white/30 text-slate-400 mb-4">
-                                    Gantt Chart
-                                </p>
                                 <GanttChart gantt={result.gantt} processes={processes} />
                             </div>
 
-                            {/* Results Table */}
-                            <div className="glass-light dark:glass rounded-2xl p-5 shadow-xl dark:shadow-black/30 animate-fade-up-delay">
-                                <p className="text-[10px] font-bold uppercase tracking-widest dark:text-white/30 text-slate-400 mb-4">
-                                    Scheduling Results
-                                </p>
+                            {/* Detailed Statistics */}
+                            <div className="glass-light dark:glass rounded-3xl p-8 shadow-2xl dark:shadow-none">
+                                <div className="flex items-center justify-between mb-6">
+                                    <p className="text-[11px] font-bold uppercase tracking-[0.15em] dark:text-white/40 text-slate-500">
+                                        Execution Logs
+                                    </p>
+                                    <h3 className="text-xl font-bold dark:text-white text-slate-900">Results Overview</h3>
+                                </div>
                                 <ResultsTable results={result.results} />
-                            </div>
-
-                            {/* Comparison Insight */}
-                            <div className="glass-light dark:glass rounded-2xl p-5 shadow-xl dark:shadow-black/30
-                                border-l-4 border-l-cyan-500 animate-fade-up-delay">
-                                <h3 className="text-[10px] font-bold uppercase tracking-widest dark:text-cyan-400 text-cyan-600 mb-2 flex items-center gap-2">
-                                    <span>📊</span> Comparison Insight
-                                </h3>
-                                <p className="text-sm dark:text-white/60 text-slate-600 leading-relaxed">
-                                    {algorithm === 'fcfs' && `FCFS produced an average waiting time of ${avgWT}ms. For this workload, consider SJF to potentially reduce average waiting time if burst times are known in advance.`}
-                                    {algorithm === 'sjf' && `SJF achieved ${avgWT}ms average waiting — theoretically optimal among non-preemptive algorithms. In practice, burst time estimation is required.`}
-                                    {algorithm === 'priority' && `Priority Scheduling resulted in ${avgWT}ms average waiting time. If starvation occurs, aging (incrementing priority of waiting processes) is recommended.`}
-                                    {algorithm === 'rr' && `Round Robin with quantum=${quantum} produced ${avgWT}ms average waiting time. Experiment with different quantum values — smaller quanta improve fairness but increase context-switch overhead.`}
-                                </p>
                             </div>
                         </div>
                     )}
                 </main>
 
-                {/* ── Footer ── */}
-                <footer className="relative z-10 text-center py-8 text-[11px] font-mono dark:text-white/20 text-slate-400 tracking-widest uppercase">
-                    CPU Scheduling Simulator · Postgraduate OS Lab · React + Vite
+                {/* Footer */}
+                <footer className="text-center py-12 px-6">
+                    <div className="max-w-xs mx-auto h-[1px] bg-gradient-to-r from-transparent via-slate-500/20 to-transparent mb-6" />
+                    <p className="text-[10px] dark:text-white/20 text-slate-400 tracking-[0.3em] uppercase">
+                        CopyRight © 2026 · Built by <a href="https://sudeepbro.works/" target="_blank" className="dark:text-white/40 text-slate-500 hover:text-cyan-500 transition-colors duration-300">ShettyBro</a>
+                    </p>
                 </footer>
             </div>
         </div>
