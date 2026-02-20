@@ -1,7 +1,7 @@
 {
     "name": "cpu-scheduling-simulator",
     "version": "1.0.0",
-    "description": "CPU Scheduling Simulator - Postgraduate OS Project",
+    "description": "CPU Scheduling Simulator",
     "type": "module",
     "scripts": {
         "dev": "vite",
