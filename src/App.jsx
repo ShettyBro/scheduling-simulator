@@ -191,7 +191,7 @@ export default function App() {
                                 </h1>
                                 <p className="text-[10px] font-bold dark:text-white/30 text-slate-500 tracking-[0.2em] uppercase">
                                     Built by <a href="https://sudeepbro.works/" target="_blank"
-                                        className="dark:text-white/40 text-slate-500 hover:text-cyan-500 transition-colors duration-300">ShettyBro</a>
+                                        className="dark:text-white/40 text-slate-500 hover:text-cyan-500 transition-colors duration-300">ShettyBro</a> & SANGAMESHA
                                 </p>
                             </div>
                         </div>
@@ -366,7 +366,7 @@ export default function App() {
                 <footer className="text-center py-12 px-6">
                     <div className="max-w-xs mx-auto h-[1px] bg-gradient-to-r from-transparent via-slate-500/20 to-transparent mb-6" />
                     <p className="text-[10px] dark:text-white/20 text-slate-400 tracking-[0.3em] uppercase">
-                        CopyRight © 2026 · Built by <a href="https://sudeepbro.works/" target="_blank" className="dark:text-white/40 text-slate-500 hover:text-cyan-500 transition-colors duration-300">ShettyBro</a>
+                        CopyRight © 2026 · Built by <a href="https://sudeepbro.works/" target="_blank" className="dark:text-white/40 text-slate-500 hover:text-cyan-500 transition-colors duration-300">ShettyBro</a> & SANGAMESHA
                     </p>
                 </footer>
             </div>
