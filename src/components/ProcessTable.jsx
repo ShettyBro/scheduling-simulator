@@ -11,13 +11,16 @@ export default function ProcessTable({ processes, setProcesses, algorithm }) {
     }
 
     const addRow = () => {
-        const nextId = processes.length > 0 ? Math.max(...processes.map(p => p.id)) + 1 : 1
+        // Always use length + 1 so numbering stays sequential
+        const nextId = processes.length + 1
         setProcesses([...processes, { id: nextId, arrivalTime: 0, burstTime: 1, priority: 1 }])
     }
 
     const removeRow = (index) => {
         if (processes.length <= 1) return
-        setProcesses(processes.filter((_, i) => i !== index))
+        // After removing, reassign IDs sequentially so P1, P2, P3... stays intact
+        const filtered = processes.filter((_, i) => i !== index)
+        setProcesses(filtered.map((p, i) => ({ ...p, id: i + 1 })))
     }
 
     const inputClass = `w-full text-center font-mono text-sm
